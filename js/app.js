@@ -24,6 +24,8 @@ const citaObj = {
     sintomas: ''
 };
 
+// Local Storage
+
 // Eventos
 pacienteInput.addEventListener('change', datosCita);
 propietarioInput.addEventListener('change', datosCita);
@@ -63,26 +65,36 @@ class Notificacion {
 class AdminCitas {
     constructor() {
         this.citas = [];
+        this.mostrarCitas();
     }
 
     agregarCita(cita) {
-        this.citas = [...this.citas, cita];
+        this.citas = [...this.citas, cita];ç
+        localStorage.setItem('citas', JSON.stringify(citas.citas));
         this.mostrarCitas();
     }
 
     editar(citaActualizada) {
         this.citas = this.citas.map(cita => cita.id === citaActualizada.id ? citaActualizada : cita);
+        localStorage.setItem('citas', JSON.stringify(citas.citas));
         this.mostrarCitas();
     }
 
     eliminar(id) {
         this.citas = this.citas.filter(cita => cita.id !== id);
+        localStorage.setItem('citas', JSON.stringify(citas.citas));
         this.mostrarCitas();
     }
 
     mostrarCitas() {
+
+
         while (contenedorCitas.firstChild) {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
+        }
+
+        if (localStorage.getItem('citas')) {
+            this.citas = JSON.parse(localStorage.getItem('citas'));
         }
 
         if (this.citas.length === 0) {
@@ -140,6 +152,7 @@ class AdminCitas {
             divCita.appendChild(sintomas);
             divCita.appendChild(contenedorBotones);
             contenedorCitas.appendChild(divCita);
+
         });
     }
 }
@@ -182,8 +195,7 @@ function submitCita(e) {
     formulario.reset();
     reiniciarObjetoCita();
     formularioInput.value = 'Registrar Paciente';
-    editando = false; ww;
-
+    editando = false;
 }
 
 function reiniciarObjetoCita() {
