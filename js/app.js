@@ -69,7 +69,7 @@ class AdminCitas {
     }
 
     agregarCita(cita) {
-        this.citas = [...this.citas, cita];ç
+        this.citas = [...this.citas, cita];
         localStorage.setItem('citas', JSON.stringify(citas.citas));
         this.mostrarCitas();
     }
